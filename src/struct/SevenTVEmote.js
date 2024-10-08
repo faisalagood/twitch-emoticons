@@ -27,13 +27,13 @@ class SevenTVEmote extends Emote {
     _setup(data) {
         super._setup(data);
         this.code = data.name;
-
+    
         /**
          * The name of the emote creator's channel.
          * @type {?string}
          */
         this.ownerName = 'owner' in data ? data.owner.display_name : null;
-
+    
         /**
          * Available image sizes.
          * @type {string[]}
@@ -41,20 +41,26 @@ class SevenTVEmote extends Emote {
         this.sizes = data.host.files
             .filter(el => el.format === this.channel.format.toUpperCase())
             .map(el => el.name);
-
+    
         /**
          * If emote is animated.
          * @type {boolean}
          */
         this.animated = data.animated;
-
+    
         /**
          * The image type of the emote.
          * @type {string}
          */
         this.imageType = this.channel.format;
+    
+        /**
+         * If the emote is a modifier emote.
+         * @type {boolean}
+         */
+        this.modifier = data.flags > 0; // Set to true if flags are greater than 0, otherwise false
     }
-
+    
     /**
      * Gets the image link of the emote.
      * @param {number} size - The size of the image.
